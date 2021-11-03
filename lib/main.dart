@@ -5,32 +5,43 @@ void main() => runApp(MaterialApp(
         appBar: AppBar(
           title: Text("Transferências"),
         ),
-        body: Column(
-          children: const [
-            Card(
-              child: ListTile(
-                title: Text("100.0"),
-                subtitle: Text("Conta: Abc-123"),
-                leading: Icon(Icons.monetization_on),
-              ),
-            ),Card(
-              child: ListTile(
-                title: Text("200.0"),
-                subtitle: Text("Conta: Abc-123"),
-                leading: Icon(Icons.monetization_on),
-              ),
-            ),Card(
-              child: ListTile(
-                title: Text("300.0"),
-                subtitle: Text("Conta: Abc-123"),
-                leading: Icon(Icons.monetization_on),
-              ),
-            ),
-          ],
-        ),
+        body: ListaTransferencias(),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: null,
         ),
       ),
     ));
+
+class ListaTransferencias extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget> [
+        ItemTransferencia('100.0','Conta A'),
+        ItemTransferencia('200.0','Conta B'),
+        ItemTransferencia('300.0','Conta C'),
+      ],
+    );
+  }
+}
+
+class ItemTransferencia extends StatelessWidget {
+
+  final String valor;
+  final String numeroConta;
+
+  ItemTransferencia(this.valor, this.numeroConta);
+
+  @override
+  Widget build(BuildContext context) {
+    return  Card(
+      child: ListTile(
+        title: Text(valor),
+        subtitle: Text(numeroConta),
+        leading: Icon(Icons.monetization_on),
+      ),
+    );
+  }
+  
+}
