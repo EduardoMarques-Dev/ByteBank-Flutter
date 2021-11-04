@@ -16,7 +16,8 @@ class ByteBankApp extends StatelessWidget {
 }
 
 class FormularioTransferencia extends StatelessWidget {
-  const FormularioTransferencia({Key? key}) : super(key: key);
+  final TextEditingController _controladorCampoConta = TextEditingController();
+  final TextEditingController _controladorCampoValor = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,18 +28,20 @@ class FormularioTransferencia extends StatelessWidget {
         body: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: TextField(
+                controller: _controladorCampoConta,
                 style: TextStyle(fontSize: 24.0),
                 decoration: InputDecoration(
                   labelText: 'Conta',
-                  hintText: 'xx-0000',
+                  hintText: '0000',
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: TextField(
+                controller: _controladorCampoValor,
                 style: TextStyle(fontSize: 24.0),
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
@@ -48,7 +51,20 @@ class FormularioTransferencia extends StatelessWidget {
                 ),
               ),
             ),
-            ElevatedButton(onPressed: null, child: Text('Confirmar')),
+            ElevatedButton(
+              onPressed: () {
+                debugPrint('clicou no confirmar');
+                final int? conta = int.tryParse(_controladorCampoConta.text);
+                final double? valor =
+                    double.tryParse(_controladorCampoValor.text);
+                if (conta != null && valor != null) {
+                  final transferenciaCriada =
+                      Transferencia(valor.toDouble(), conta.toInt());
+                  debugPrint('$transferenciaCriada');
+                }
+              },
+              child: Text('Confirmar'),
+            ),
           ],
         ));
   }
@@ -63,9 +79,9 @@ class ListaTransferencias extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          ItemTransferencia(Transferencia(100.0, 'Conta A')),
-          ItemTransferencia(Transferencia(200.0, 'Conta B')),
-          ItemTransferencia(Transferencia(400.0, 'Conta D')),
+          ItemTransferencia(Transferencia(100.0, 1)),
+          ItemTransferencia(Transferencia(200.0, 2)),
+          ItemTransferencia(Transferencia(400.0, 3)),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -95,7 +111,12 @@ class ItemTransferencia extends StatelessWidget {
 
 class Transferencia {
   final double valor;
-  final String Conta;
+  final int Conta;
 
   Transferencia(this.valor, this.Conta);
+
+  @override
+  String toString() {
+    return 'Transferencia{valor: $valor, Conta: $Conta}';
+  }
 }
