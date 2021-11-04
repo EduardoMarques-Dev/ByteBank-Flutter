@@ -32,6 +32,7 @@ class FormularioTransferencia extends StatelessWidget {
               child: TextField(
                 controller: _controladorCampoConta,
                 style: TextStyle(fontSize: 24.0),
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: 'Conta',
                   hintText: '0000',
@@ -61,6 +62,11 @@ class FormularioTransferencia extends StatelessWidget {
                   final transferenciaCriada =
                       Transferencia(valor.toDouble(), conta.toInt());
                   debugPrint('$transferenciaCriada');
+                  Scaffold.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('$transferenciaCriada'),
+                    ),
+                  );
                 }
               },
               child: Text('Confirmar'),
@@ -69,6 +75,8 @@ class FormularioTransferencia extends StatelessWidget {
         ));
   }
 }
+
+//////////////////////// WIDGETS
 
 class ListaTransferencias extends StatelessWidget {
   @override
@@ -108,6 +116,8 @@ class ItemTransferencia extends StatelessWidget {
     );
   }
 }
+
+//////////////////////// CLASSES
 
 class Transferencia {
   final double valor;
