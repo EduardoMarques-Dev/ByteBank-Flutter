@@ -18,9 +18,9 @@ class ListaTransferencias extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget> [
-        ItemTransferencia('100.0','Conta A'),
-        ItemTransferencia('200.0','Conta B'),
-        ItemTransferencia('300.0','Conta C'),
+        ItemTransferencia(Transferencia(100.0,'Conta A')),
+        ItemTransferencia(Transferencia(200.0,'Conta B')),
+        ItemTransferencia(Transferencia(400.0,'Conta D')),
       ],
     );
   }
@@ -28,20 +28,25 @@ class ListaTransferencias extends StatelessWidget {
 
 class ItemTransferencia extends StatelessWidget {
 
-  final String valor;
-  final String numeroConta;
+  final Transferencia _transferencia;
 
-  ItemTransferencia(this.valor, this.numeroConta);
+  ItemTransferencia(this._transferencia);
 
   @override
   Widget build(BuildContext context) {
-    return  Card(
+    return Card(
       child: ListTile(
-        title: Text(valor),
-        subtitle: Text(numeroConta),
+        title: Text(_transferencia.valor.toString()),
+        subtitle: Text(_transferencia.Conta),
         leading: Icon(Icons.monetization_on),
       ),
     );
   }
-  
+}
+
+  class Transferencia {
+    final double valor;
+    final String Conta;
+
+    Transferencia(this.valor, this.Conta);
 }
