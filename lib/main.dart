@@ -24,7 +24,33 @@ class FormularioTransferencia extends StatelessWidget {
         appBar: AppBar(
           title: Text('Criando Transferência'),
         ),
-        body: Text('Teste'));
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                style: TextStyle(fontSize: 24.0),
+                decoration: InputDecoration(
+                  labelText: 'Conta',
+                  hintText: 'xx-0000',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                style: TextStyle(fontSize: 24.0),
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  icon: Icon(Icons.monetization_on),
+                  labelText: 'Valor',
+                  hintText: '0.00',
+                ),
+              ),
+            ),
+            ElevatedButton(onPressed: null, child: Text('Confirmar')),
+          ],
+        ));
   }
 }
 
@@ -60,7 +86,7 @@ class ItemTransferencia extends StatelessWidget {
     return Card(
       child: ListTile(
         title: Text(_transferencia.valor.toString()),
-        subtitle: Text(_transferencia.Conta),
+        subtitle: Text(_transferencia.Conta.toString()),
         leading: Icon(Icons.monetization_on),
       ),
     );
